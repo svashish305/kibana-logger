@@ -1,0 +1,15 @@
+{
+  "name": "log-viewer",
+  "version": "1.0.0",
+  "description": "Log-Viewer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.tool.nat.bt.com/612394207/log-viewer.git"
+  },
+  "author": "Shubhashish Verma",
+  "license": "ISC"
+}

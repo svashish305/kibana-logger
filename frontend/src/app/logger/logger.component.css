@@ -1,0 +1,25 @@
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css";
+
+.textbox {
+    min-width: 50px;
+    max-width: 200px;
+    width: 50%;
+}
+
+.spacing {
+    margin: 0 60px 0 0;
+}
+
+table {
+    /* min-width: 800px;
+    max-width: 1000px; */
+    width: 100%;
+}
+
+mat-cell, .mat-cell {
+    padding: 0px 5px 0px 5px;
+}
+
+.div-spacing {
+    padding: 10px 0px 10px 0px;
+}

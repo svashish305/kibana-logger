@@ -1,3 +1,104 @@
-<p>
-  logger works!
-</p>
+<div class="container">
+  <div class="container div-spacing">
+    <form [formGroup]="seqForm">
+        <!-- <select formControlName="seqControl">
+          <option [value]="seqParam" *ngFor="let seqParam of seqParams">{{seqParam}}</option>
+        </select> -->
+    
+        <mat-form-field class="spacing">
+          <mat-label>Select params</mat-label>
+          <mat-select [(value)]="selected">
+            <mat-option *ngFor="let seqParam of seqParams" [value]="seqParam.value">
+              {{seqParam.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <p>You selected: {{selected}}</p> -->
+    
+        <mat-form-field class="textbox spacing">
+          <input matInput placeholder="" value="4gyxfi6tp3">
+        </mat-form-field>
+    
+        <button mat-button>Search</button>
+    
+      </form>
+  </div>
+
+  <div class="container div-spacing">
+    <mat-checkbox class="spacing">Gotham</mat-checkbox>
+    <mat-checkbox class="spacing">Voltest</mat-checkbox>
+    <mat-checkbox class="spacing">Live</mat-checkbox>
+    <mat-checkbox class="spacing">All</mat-checkbox>
+  </div>
+  
+  <div class="container div-spacing">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+        
+          <!-- Date and Time Column -->
+          <ng-container matColumnDef="dateTime">
+            <th mat-header-cell *matHeaderCellDef> Date & Time </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateTime}} </td>
+          </ng-container>
+        
+          <!-- SystemCd Column -->
+          <ng-container matColumnDef="systemCd">
+            <th mat-header-cell *matHeaderCellDef> System Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.systemCd}} </td>
+          </ng-container>
+        
+          <!-- ClientIP Column -->
+          <ng-container matColumnDef="clientIP">
+            <th mat-header-cell *matHeaderCellDef> Client IP </th>
+            <td mat-cell *matCellDef="let element"> {{element.clientIP}} </td>
+          </ng-container>
+        
+          <!-- BusTxnSeq Column -->
+          <ng-container matColumnDef="busTxnSeq">
+            <th mat-header-cell *matHeaderCellDef> Bus Txn Seq </th>
+            <td mat-cell *matCellDef="let element"> {{element.busTxnSeq}} </td>
+          </ng-container>
+
+          <!-- BusTxnType Column -->
+          <ng-container matColumnDef="busTxnType">
+            <th mat-header-cell *matHeaderCellDef> Bus Txn Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.busTxnType}} </td>
+          </ng-container>
+
+          <!-- BusProcType Column -->
+          <ng-container matColumnDef="busProcType">
+            <th mat-header-cell *matHeaderCellDef> Bus Proc Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.busProcType}} </td>
+          </ng-container>
+
+          <!-- Request Type Column -->
+          <ng-container matColumnDef="requestType">
+            <th mat-header-cell *matHeaderCellDef> Request Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.requestType}} </td>
+          </ng-container>
+
+          <!-- Env Column -->
+          <ng-container matColumnDef="env">
+            <th mat-header-cell *matHeaderCellDef> Env </th>
+            <td mat-cell *matCellDef="let element"> {{element.env}} </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+
+          <!-- XML Column -->
+          <ng-container matColumnDef="reqResXml">
+            <th mat-header-cell *matHeaderCellDef> Req and Res XMLs </th>
+            <td mat-cell *matCellDef="let element"> {{element.reqResXml}} </td>
+          </ng-container>          
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>        
+  </div>
+</div>

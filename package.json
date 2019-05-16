@@ -11,5 +11,6 @@
     "url": "https://gitlab.tool.nat.bt.com/612394207/log-viewer.git"
   },
   "author": "Shubhashish Verma",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }

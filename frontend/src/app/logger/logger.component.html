@@ -1,13 +1,9 @@
 <div class="container">
   <div class="container div-spacing">
-    <form [formGroup]="seqForm">
-        <!-- <select formControlName="seqControl">
-          <option [value]="seqParam" *ngFor="let seqParam of seqParams">{{seqParam}}</option>
-        </select> -->
-    
+    <form [formGroup]="seqForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="spacing">
           <mat-label>Select params</mat-label>
-          <mat-select [(value)]="selected">
+          <mat-select formControlName="selectedParam" [(value)]="selected">
             <mat-option *ngFor="let seqParam of seqParams" [value]="seqParam.value">
               {{seqParam.viewValue}}
             </mat-option>
@@ -16,20 +12,21 @@
         <!-- <p>You selected: {{selected}}</p> -->
     
         <mat-form-field class="textbox spacing">
-          <input matInput placeholder="" value="4gyxfi6tp3">
+          <input matInput placeholder="" value="4gyxfi6tp3" formControlName="busTxnSeq">  
         </mat-form-field>
     
-        <button mat-button>Search</button>
-    
+        <div class="container div-spacing">
+          <mat-checkbox formControlName="checkGotham" class="spacing">Gotham</mat-checkbox>
+          <mat-checkbox formControlName="checkVoltest" class="spacing">Voltest</mat-checkbox>
+          <mat-checkbox formControlName="checkLive" class="spacing">Live</mat-checkbox>
+          <mat-checkbox formControlName="checkAll" class="spacing">All</mat-checkbox>
+
+          <button mat-button type="submit">Search</button>
+        </div>    
       </form>
   </div>
 
-  <div class="container div-spacing">
-    <mat-checkbox class="spacing">Gotham</mat-checkbox>
-    <mat-checkbox class="spacing">Voltest</mat-checkbox>
-    <mat-checkbox class="spacing">Live</mat-checkbox>
-    <mat-checkbox class="spacing">All</mat-checkbox>
-  </div>
+  
   
   <div class="container div-spacing">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

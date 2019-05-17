@@ -35,6 +35,14 @@ import { LoggerComponent } from './logger/logger.component';
     BrowserAnimationsModule,
     AppRoutingModule
   ],
+  exports: [
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTableModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

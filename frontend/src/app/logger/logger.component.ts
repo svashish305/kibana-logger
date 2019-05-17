@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators , NgForm } from '@angular/forms';
 import 'hammerjs';
 
 export interface SeqParam {
@@ -44,6 +44,13 @@ export class LoggerComponent implements OnInit {
   dataSource = ELEMENT_DATA;
 
   seqForm: FormGroup;
+  selectedParam:string = '';
+  busTxnSeq:string = '';
+  checkGotham:boolean = false;
+  checkVoltest:boolean = false;
+  checkLive:boolean = false;
+  checkAll:boolean = false;
+
   // seqParams = ['BusTxnSeq', 'abc', 'xyz']
 
   seqParams: SeqParam[] = [
@@ -58,10 +65,19 @@ export class LoggerComponent implements OnInit {
 
   ngOnInit() {
     this.seqForm = this.fb.group({
-    //   seqControl: ['BusTxnSeq']
+      'selectedParam' : [null],
+      'busTxnSeq' : [null],
+      'checkGotham': [null],
+      'checkVoltest': [null],
+      'checkLive': [null],
+      'checkAll': [null]
     });
 
 
+  }
+
+  onSubmit() {
+    console.log(this.seqForm.value);
   }
 
 }

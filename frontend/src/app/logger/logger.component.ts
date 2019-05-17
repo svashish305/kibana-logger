@@ -65,8 +65,8 @@ export class LoggerComponent implements OnInit {
 
   ngOnInit() {
     this.seqForm = this.fb.group({
-      'selectedParam' : [''],
-      'busTxnSeq' : [''],
+      'selectedParam' : ['', Validators.required],
+      'busTxnSeq' : ['', Validators.required],
       'checkGotham': [false],
       'checkVoltest': [false],
       'checkLive': [false],

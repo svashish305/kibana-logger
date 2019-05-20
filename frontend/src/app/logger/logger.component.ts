@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators , NgForm } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'hammerjs';
 
 export interface SeqParam {
@@ -59,7 +60,7 @@ export class LoggerComponent implements OnInit {
     {value: 'Tacos', viewValue: 'Tacos'}
   ];
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) { 
     
   }
 
@@ -77,7 +78,37 @@ export class LoggerComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.seqForm.value);
-  }
+    // console.log(this.seqForm.value);
+  
+    const selectedParam  = this.seqForm.get('selectedParam');
+    const busTxnSeq = this.seqForm.get('busTxnSeq').value;
+    let env = '';
+    if (this.seqForm.get('checkGotham'))
+      env = 'gotham';
+    else if (this.seqForm.get('checkVoltest'))
+      env = 'voltest';
+    else if (this.seqForm.get('checkLive'))
+      env = 'live';
+    else if (this.seqForm.get('checkAll'))
+      env = 'all';
 
+    const zxtmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=Request_E2Edata: *${busTxnSeq}*&env=${env}`;
+    // for hyperlink, to show audit logs :
+    // const bptmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=e2e.busTxnSeq:${busTxnSeq}&env=${env}`;
+
+    var headers_object = new HttpHeaders();
+    headers_object.append("Authorization", "Basic " + btoa("elasticsearch-json:vhZpjq5Jzrm"));
+    headers_object.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    this.httpClient.post('/api/postData', {busTxnSeq, env}, httpOptions).subscribe((res)=>{
+      console.log('sending params to backend');
+    });
+
+  }
+  
+  
 }

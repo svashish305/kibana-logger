@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { 
@@ -33,6 +34,7 @@ import { LoggerComponent } from './logger/logger.component';
     MatCheckboxModule,
     MatTableModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   exports: [

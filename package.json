@@ -4,7 +4,8 @@
   "description": "Kibana-Log-Viewer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run start-proxy\""
   },
   "repository": {
     "type": "git",
@@ -12,5 +13,8 @@
   },
   "author": "Shubhashish Verma",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5"
+  }
 }

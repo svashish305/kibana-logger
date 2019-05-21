@@ -71,7 +71,10 @@ app.post('/postData', (req, res) => {
         // console.log(item1);
       });
 
-      // console.log(item1s);
+      return (async () => {
+        console.log(item1s)
+        // return item1s;
+      })()
 
       // fs.writeFile("./db.json", JSON.stringify(combinedItems, null, 4), (err) => {
       //   if (err) {
@@ -110,7 +113,10 @@ app.post('/postData', (req, res) => {
         // console.log(item2);
       });
 
-      // console.log(item2s);
+      return (async () => {
+        console.log(item2s)
+        // return item2s;
+      })()
 
     } catch (error) {
       console.log(error);
@@ -120,6 +126,7 @@ app.post('/postData', (req, res) => {
 
   const a1 = getZxtmData(zxtmUrl);
   const a2 = getBptmData(bptmUrl);
+
 
   // if (item1s.length <= item2s.length) {
   //   n = item1s.length;
@@ -141,9 +148,6 @@ app.post('/postData', (req, res) => {
   //   // combinedItems.push(combinedItem);
   //   console.log(combinedItem[k]);
   // }
-
-
-  console.log(a1);
 
   res.send({msg: 'fetching log data'});
 });

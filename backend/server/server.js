@@ -24,6 +24,14 @@ let env = '';
 let status = '';
 let reqResXml = '';
 
+let item1 = {dateTime, systemCd, clientIP, reqResXml};
+let item1s = [];
+let item2 = {busTxnSeq, busTxnType, busProcType, requestType, env, status};
+let item2s = [];
+var n;
+let combinedItem = {dateTime, systemCd, clientIP, busTxnSeq, busTxnType, busProcType, requestType, env, status, reqResXml};
+let combinedItems = [];
+
 app.use(bodyParser.json());
 
 // console.log that your server is up and running
@@ -39,8 +47,6 @@ app.post('/postData', (req, res) => {
   busTxnSeq = req.body.busTxnSeq;
   env = req.body.env;
 
-  // console.log(`env: ${env} busTxnSeq: ${busTxnSeq}`);
-
   zxtmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=Request_E2Edata: *${busTxnSeq}*&env=${env}`;
   bptmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=e2e.busTxnSeq:${busTxnSeq}&env=${env}`; 
 
@@ -53,45 +59,21 @@ app.post('/postData', (req, res) => {
           }
       });
       const zxtmData = zxtmResponse.data.hits.hits;
-      // console.log(zxtmData[0]._source.Timestamp);
-      // console.log('dummySysCode');
-      // console.log(zxtmData[0]._source.Client_IP);
-      // console.log(zxtmData[0]._source.Request_body);
-      // console.log(zxtmData[0]._source.Response_body);
 
-      fs.writeFile("./db.json", JSON.stringify(zxtmData[0], null, 4), (err) => {
-        if (err) {
-            console.error(err);
-            return;
-        };
-        console.log("File has been created");
+      zxtmData.forEach(element => {
+        item1.dateTime = element._source.Timestamp;
+        item1.systemCd = 'dummySysCode';
+        item1.clientIP = element._source.Client_IP.substr(2);
+        item1.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`
+
+        item1s.push(item1);  
+
+        // console.log(item1);
       });
-      
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  getBptmData = async bptmUrl => {
-    try {
-      const bptmResponse = await axios.get(bptmUrl, {
-          auth: {
-              username: username,
-              password: password
-          }
-      });
-      const bptmData = bptmResponse.data.hits.hits;
-      // console.log(bptmData[0]._source.e2e.busTxnSeq);      
-      // console.log(bptmData[0]._source.e2e.busTxnType);
-      // console.log(bptmData[0]._source.e2e.busProcType);   
-      // console.log(bptmData[0]._source.doc.REQUEST-TYPE);   
-      // console.log(zxtmData[0]._source.env);
-      console.log(bptmData[0]._source.doc.STATUS);   
+      // console.log(item1s);
 
-
-
-      
-      // fs.writeFile("./db.json", JSON.stringify(bptmData[0], null, 4), (err) => {
+      // fs.writeFile("./db.json", JSON.stringify(combinedItems, null, 4), (err) => {
       //   if (err) {
       //       console.error(err);
       //       return;
@@ -102,12 +84,66 @@ app.post('/postData', (req, res) => {
     } catch (error) {
       console.log(error);
     }
+
   };
 
-  
+  getBptmData = async bptmUrl => {
+    try {
+      const bptmResponse = await axios.get(bptmUrl, {
+          auth: {
+              username: username,
+              password: password
+          }
+      });
+      const bptmData = bptmResponse.data.hits.hits;  
 
-  getZxtmData(zxtmUrl);
-  getBptmData(bptmUrl);
+      bptmData.forEach(element => {
+        item2.busTxnSeq = element._source.e2e.busTxnSeq;
+        item2.busTxnType = element._source.e2e.busTxnType;
+        item2.busProcType = element._source.e2e.busProcType;
+        // item2.requestType = element._source.doc['REQUEST-TYPE'];
+        item2.env = element._source.env;
+        // item2.status = element._source.doc['STATUS'];
+
+        item2s.push(item2);
+
+        // console.log(item2);
+      });
+
+      // console.log(item2s);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
+  const a1 = getZxtmData(zxtmUrl);
+  const a2 = getBptmData(bptmUrl);
+
+  // if (item1s.length <= item2s.length) {
+  //   n = item1s.length;
+  // } else if (item1s.length > item2s.length) {
+  //   n = item2s.length;
+  // } 
+  // for(var i=0, j=0, k=0; i< item1s.length, j < item2s.length, k< n; i++, j++, k++) {
+  //   combinedItem[k].dateTime = item1s[i].dateTime;
+  //   combinedItem[k].systemCd = item1s[i].systemCd;
+  //   combinedItem[k].clientIP = item1s[i].clientIP;
+  //   combinedItem[k].busTxnSeq = item2s[j].busTxnSeq;
+  //   combinedItem[k].busTxnType = item2s[j].busTxnType;
+  //   combinedItem[k].busProcType = item2s[j].busProcType;
+  //   combinedItem[k].requestType = item2s[j].requestType;
+  //   combinedItem[k].env = item2s[j].env;
+  //   combinedItem[k].status = item2s[j].status;
+  //   combinedItem[k].reqResXml = item2s[j].reqResXml;
+
+  //   // combinedItems.push(combinedItem);
+  //   console.log(combinedItem[k]);
+  // }
+
+
+  console.log(a1);
 
   res.send({msg: 'fetching log data'});
 });

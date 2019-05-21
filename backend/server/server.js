@@ -76,14 +76,6 @@ app.post('/postData', (req, res) => {
         // return item1s;
       })()
 
-      // fs.writeFile("./db.json", JSON.stringify(combinedItems, null, 4), (err) => {
-      //   if (err) {
-      //       console.error(err);
-      //       return;
-      //   };
-      //   console.log("File has been created");
-      // });
-
     } catch (error) {
       console.log(error);
     }
@@ -127,6 +119,13 @@ app.post('/postData', (req, res) => {
   const a1 = getZxtmData(zxtmUrl);
   const a2 = getBptmData(bptmUrl);
 
+      // fs.writeFile("./db.json", JSON.stringify(combinedItems, null, 4), (err) => {
+      //   if (err) {
+      //       console.error(err);
+      //       return;
+      //   };
+      //   console.log("File has been created");
+      // });
 
   // if (item1s.length <= item2s.length) {
   //   n = item1s.length;

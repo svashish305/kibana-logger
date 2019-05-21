@@ -45,9 +45,8 @@ app.post('/postData', (req, res) => {
     }
   };
   
-  // getData(url);
+  getData(url);
 
-  res.send(getData(url));
 });
 
 app.get('/postData', (req, res) => {

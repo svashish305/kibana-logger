@@ -108,7 +108,7 @@ export class LoggerComponent implements OnInit {
       console.log('sending params to backend');
     });
 
-    this.httpClient.get('/api/postData').subscribe((res)=>{
+    this.httpClient.get('/api/postData', httpOptions).subscribe((res)=>{
         console.log('fetching data from backend');
     });
   }

@@ -98,7 +98,7 @@ export class LoggerComponent implements OnInit {
 
     var headers_object = new HttpHeaders();
     headers_object.append("Authorization", "Basic " + btoa("elasticsearch-json:vhZpjq5Jzrm"));
-    headers_object.append("Content-Type", "application/x-www-form-urlencoded");
+    // headers_object.append("Content-Type", "application/x-www-form-urlencoded");
 
     const httpOptions = {
       headers: headers_object
@@ -108,6 +108,9 @@ export class LoggerComponent implements OnInit {
       console.log('sending params to backend');
     });
 
+    this.httpClient.get('/api/postData').subscribe((res)=>{
+        console.log('fetching data from backend');
+    });
   }
   
   

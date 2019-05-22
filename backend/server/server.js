@@ -29,8 +29,8 @@ let item2s = [];
 let combinedItem = {dateTime, systemCd, clientIP, busTxnSeq, busTxnType, busProcType, requestType, env, status, reqResXml};
 let combinedItems = [];
 
-let content1;
-let content2;
+let content1 = [];
+let content2 = [];
 
 app.use(bodyParser.json());
 
@@ -164,6 +164,8 @@ app.get('/postData', (req, res) => {
 
   function process1() {
     // console.log(content1[0]); 
+
+    // content1.forEach();
   }
 
   fs.readFile('./a2.json', 'utf8', (err, jsonString) => {
@@ -177,7 +179,9 @@ app.get('/postData', (req, res) => {
   });
 
   function process2() {
-    // console.log(content2[0]);   
+    // console.log(content2[0]); 
+    
+    // content1.forEach();
   }
 
   res.send({msg: 'read files'});

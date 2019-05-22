@@ -42,6 +42,7 @@ app.get('/', (req, res) => {
   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO ANGULAR' });
 });
 
+// save the logs
 app.post('/postData', (req, res) => {
   
   busTxnSeq = req.body.busTxnSeq;
@@ -125,20 +126,20 @@ app.post('/postData', (req, res) => {
     return new Promise(function(resolve, reject) {
       fs.writeFile('./a1.json', JSON.stringify(data1, null, 4), function(err) {
          if (err) reject(err);
-         else resolve(data);
+         else resolve(data1);
       });
     }); 
 
     // return data1;
   });
-  
+
   getBptmData(bptmUrl).then((data2) => {
     // console.log(data2);
 
     return new Promise(function(resolve, reject) {
       fs.writeFile('./a2.json', JSON.stringify(data2, null, 4), function(err) {
          if (err) reject(err);
-         else resolve(secondData);
+         else resolve(data2);
       });
     }); 
 
@@ -148,20 +149,26 @@ app.post('/postData', (req, res) => {
   res.send({msg: 'fetching log data'});
 });
 
+// display the logs
 app.get('/postData', (req, res) => {
-  fs.readFile('./a1.json', 'utf8', (err, jsonString) => {
-    if (err) {
-        console.log("File read failed:", err)
-        return
+  var count = 0;
+  var handler = function(error, content){
+    count++;
+    if (error){
+      console.log(error);
     }
-    res.send(JSON.parse(jsonString)); 
-  });
+    else{
+      res.write(content);
+    }
 
-  fs.readFile('./a2.json', 'utf8', (err, jsonString) => {
-    if (err) {
-        console.log("File read failed:", err)
-        return
+    if (count == 1) {
+      res.write(',\n');
     }
-    res.send(JSON.parse(jsonString)); 
-  });
+    if (count == 2) {
+      res.end();
+    }
+  }
+
+  fs.readFile('./a1.json', handler);
+  fs.readFile('./a2.json', handler);
 });

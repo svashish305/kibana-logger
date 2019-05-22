@@ -26,11 +26,11 @@ let item1 = {dateTime, clientIP, reqResXml};
 let item1s = [];
 let item2 = {systemCd, busTxnSeq, busTxnType, busProcType, requestType, env, status};
 let item2s = [];
-var n;
 let combinedItem = {dateTime, systemCd, clientIP, busTxnSeq, busTxnType, busProcType, requestType, env, status, reqResXml};
 let combinedItems = [];
-let a1 = [];
-let a2 = [];
+
+var content1;
+var content2;
 
 app.use(bodyParser.json());
 
@@ -72,9 +72,9 @@ app.post('/postData', (req, res) => {
         // console.log(item1);
       });
 
-      (async () => {
-        // console.log(item1s)
-      })()
+      // (async () => {
+      //   console.log(item1s)
+      // })()
 
       return item1s;
 
@@ -108,9 +108,9 @@ app.post('/postData', (req, res) => {
         // console.log(item2);
       });
 
-      (async () => {
-        // console.log(item2s)
-      })()
+      // (async () => {
+      //   console.log(item2s)
+      // })()
 
       return item2s;
 
@@ -151,24 +151,34 @@ app.post('/postData', (req, res) => {
 
 // display the logs
 app.get('/postData', (req, res) => {
-  var count = 0;
-  var handler = function(error, content){
-    count++;
-    if (error){
-      console.log(error);
+  
+  fs.readFile('./a1.json', 'utf8', (err, jsonString) => {
+    if (err) {
+        console.log("File read failed:", err)
+        return
     }
-    else{
-      res.write(content);
-    }
+    content1 = JSON.parse(jsonString);
+    // console.log(content1);
+    process1();
+  });
 
-    if (count == 1) {
-      res.write(',\n');
-    }
-    if (count == 2) {
-      res.end();
-    }
+  function process1() {
+    // console.log(content1[0]); 
   }
 
-  fs.readFile('./a1.json', handler);
-  fs.readFile('./a2.json', handler);
+  fs.readFile('./a2.json', 'utf8', (err, jsonString) => {
+    if (err) {
+        console.log("File read failed:", err)
+        return
+    }
+    content2 = JSON.parse(jsonString);
+    // console.log(content2);
+    process2();
+  });
+
+  function process2() {
+    // console.log(content2[0]);   
+  }
+
+  res.send({msg: 'read files'});
 });

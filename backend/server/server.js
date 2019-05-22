@@ -29,8 +29,8 @@ let item2s = [];
 let combinedItem = {dateTime, systemCd, clientIP, busTxnSeq, busTxnType, busProcType, requestType, env, status, reqResXml};
 let combinedItems = [];
 
-var content1;
-var content2;
+let content1;
+let content2;
 
 app.use(bodyParser.json());
 

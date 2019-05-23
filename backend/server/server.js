@@ -95,6 +95,7 @@ app.post('/postData', (req, res) => {
       const bptmData = bptmResponse.data.hits.hits;  
 
       bptmData.forEach(element => {
+        // console.log(element);
         // item2.systemCd = element._source.doc['REQUEST-SYSTEM-CD'];
         item2.busTxnSeq = element._source.e2e.busTxnSeq;
         item2.busTxnType = element._source.e2e.busTxnType;
@@ -125,8 +126,8 @@ app.post('/postData', (req, res) => {
 
     return new Promise(function(resolve, reject) {
       fs.writeFile('./a1.json', JSON.stringify(data1, null, 4), function(err) {
-         if (err) reject(err);
-         else resolve(data1);
+        if (err) reject(err);
+        else resolve(data1);
       });
     }); 
 
@@ -138,8 +139,8 @@ app.post('/postData', (req, res) => {
 
     return new Promise(function(resolve, reject) {
       fs.writeFile('./a2.json', JSON.stringify(data2, null, 4), function(err) {
-         if (err) reject(err);
-         else resolve(data2);
+        if (err) reject(err);
+        else resolve(data2);
       });
     }); 
 
@@ -152,7 +153,7 @@ app.post('/postData', (req, res) => {
 // display the logs
 app.get('/postData', (req, res) => {
   
-  fs.readFile('./a1.json', 'utf8', (err, jsonString) => {
+  var a1 = fs.readFileSync('./a1.json', 'utf8', (err, jsonString) => {
     if (err) {
         console.log("File read failed:", err)
         return
@@ -164,25 +165,48 @@ app.get('/postData', (req, res) => {
 
   function process1() {
     // console.log(content1[0]); 
-
-    // content1.forEach();
   }
 
-  fs.readFile('./a2.json', 'utf8', (err, jsonString) => {
+  var a2 = fs.readFileSync('./a2.json', 'utf8', (err, jsonString) => {
     if (err) {
         console.log("File read failed:", err)
         return
     }
     content2 = JSON.parse(jsonString);
-    // console.log(content2);
     process2();
   });
 
   function process2() {
     // console.log(content2[0]); 
-    
-    // content1.forEach();
   }
 
-  res.send({msg: 'read files'});
+  // read the arrays into a1 and a2, now time to play with them
+  var first = JSON.parse(a1);
+  var second = JSON.parse(a2);
+  let i=0;
+  let j=0;
+  const n=Math.min(first.length, second.length);
+  // console.log(first[0]);
+  // console.log(second[0]);
+
+  // console.log(`${first.length} ${second.length}`);
+
+  for(i=0, j=0; i<n, j<n; i++, j++) {
+    combinedItem.dateTime = first[i].dateTime;
+    combinedItem.systemCd = second[j].systemCd;
+    combinedItem.clientIP = first[i].clientIP;
+    combinedItem.busTxnSeq = second[j].busTxnSeq;
+    combinedItem.busTxnType = second[j].busTxnType;
+    combinedItem.busProcType = second[j].busProcType;
+    combinedItem.requestType = second[j].requestType;
+    combinedItem.env = second[j].env;
+    combinedItem.status = second[j].status;
+    combinedItem.reqResXml = first[i].reqResXml;
+
+    combinedItems.push(combinedItem);
+  }
+
+  // console.log(combinedItems);
+
+  res.send(combinedItems);
 });

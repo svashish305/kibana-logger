@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators , NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'hammerjs';
+import { forEach } from '@angular/router/src/utils/collection';
 
 export interface SeqParam {
   value: string;
@@ -21,17 +22,19 @@ export interface LoggerData {
   reqResXml: string;
 }
 
-const ELEMENT_DATA: LoggerData[] = [
-  { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
-    busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
-    status: 'PASS', reqResXml: 'dummyData' },
-  { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
-    busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
-    status: 'PASS', reqResXml: 'dummyData' },
-  { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
-    busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
-    status: 'PASS', reqResXml: 'dummyData' }
+let ELEMENT_DATA: LoggerData[] = [
+  // { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
+  //   busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
+  //   status: 'PASS', reqResXml: 'dummyData' },
+  // { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
+  //   busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
+  //   status: 'PASS', reqResXml: 'dummyData' },
+  // { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
+  //   busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
+  //   status: 'PASS', reqResXml: 'dummyData' }
 ];
+
+let tableData: any[] = [];
 
 @Component({
   selector: 'app-logger',
@@ -43,6 +46,7 @@ export class LoggerComponent implements OnInit {
   displayedColumns: string[] = ['dateTime', 'systemCd', 'clientIP', 'busTxnSeq', 
   'busTxnType', 'busProcType', 'requestType', 'env', 'status', 'reqResXml'];
   dataSource = ELEMENT_DATA;
+  // dataSource = tableData;
 
   seqForm: FormGroup;
   selectedParam:string = '';
@@ -79,7 +83,9 @@ export class LoggerComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.seqForm.value);
-  
+
+    // this.dataSource = tableData;
+
     const selectedParam  = this.seqForm.get('selectedParam');
     const busTxnSeq = this.seqForm.get('busTxnSeq').value;
     let env = '';
@@ -109,8 +115,13 @@ export class LoggerComponent implements OnInit {
     });
 
     this.httpClient.get('/api/postData', httpOptions).subscribe((res)=>{
-        console.log('fetching data from backend');
+      // console.log(res[0].dateTime);
+      // tableData.push(res);
+      console.log('fetching data from backend');
+
+      // console.log(tableData);
     });
+
   }
   
   

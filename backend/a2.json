@@ -1,0 +1,29 @@
+[
+    {
+        "systemCd": "",
+        "busTxnSeq": "4gyxfi6tp3",
+        "busTxnType": "KCIEventMessage",
+        "busProcType": "Strategic KCIM",
+        "requestType": "",
+        "env": "voltest",
+        "status": ""
+    },
+    {
+        "systemCd": "",
+        "busTxnSeq": "4gyxfi6tp3",
+        "busTxnType": "KCIEventMessage",
+        "busProcType": "Strategic KCIM",
+        "requestType": "",
+        "env": "voltest",
+        "status": ""
+    },
+    {
+        "systemCd": "",
+        "busTxnSeq": "4gyxfi6tp3",
+        "busTxnType": "KCIEventMessage",
+        "busProcType": "Strategic KCIM",
+        "requestType": "",
+        "env": "voltest",
+        "status": ""
+    }
+]

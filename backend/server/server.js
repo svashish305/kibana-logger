@@ -153,7 +153,7 @@ app.post('/postData', (req, res) => {
 // display the logs
 app.get('/postData', (req, res) => {
   
-  var a1 = fs.readFileSync('./a1.json', 'utf8', (err, jsonString) => {
+  const a1 = fs.readFileSync('./a1.json', 'utf8', (err, jsonString) => {
     if (err) {
         console.log("File read failed:", err)
         return
@@ -167,7 +167,7 @@ app.get('/postData', (req, res) => {
     // console.log(content1[0]); 
   }
 
-  var a2 = fs.readFileSync('./a2.json', 'utf8', (err, jsonString) => {
+  const a2 = fs.readFileSync('./a2.json', 'utf8', (err, jsonString) => {
     if (err) {
         console.log("File read failed:", err)
         return
@@ -181,11 +181,11 @@ app.get('/postData', (req, res) => {
   }
 
   // read the arrays into a1 and a2, now time to play with them
-  var first = JSON.parse(a1);
-  var second = JSON.parse(a2);
+  let first = JSON.parse(a1);
+  let second = JSON.parse(a2);
   let i=0;
   let j=0;
-  const n=Math.min(first.length, second.length);
+  const n = Math.min(first.length, second.length);
   // console.log(first[0]);
   // console.log(second[0]);
 

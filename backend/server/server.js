@@ -256,7 +256,7 @@ app.get('/postData', (req, res) => {
     // console.log(content[0]); 
   }
 
-  let theArray = JSON.parse(a);
+  let theArray = JSON.parse(a.toString());
   let i=0;
   const n = theArray.length;
   for(i=0; i<n; i++) {

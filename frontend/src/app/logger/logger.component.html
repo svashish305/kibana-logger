@@ -12,13 +12,14 @@
         <!-- <p>You selected: {{selected}}</p> -->
     
         <mat-form-field class="textbox spacing">
-          <input formControlName="busTxnSeq" matInput placeholder="" value="4gyxfi6tp3">
+          <input formControlName="busTxnSeq" matInput placeholder="" value="4h1mn7pb0b">
         </mat-form-field>
     
         <div class="container div-spacing">
           <mat-checkbox formControlName="checkGotham" class="spacing">Gotham</mat-checkbox>
           <mat-checkbox formControlName="checkVoltest" class="spacing">Voltest</mat-checkbox>
           <mat-checkbox formControlName="checkLive" class="spacing">Live</mat-checkbox>
+          <mat-checkbox formControlName="checkProd" class="spacing">Prod</mat-checkbox>
           <mat-checkbox formControlName="checkAll" class="spacing">All</mat-checkbox>
 
           <button mat-button type="submit">Search</button>
@@ -58,6 +59,18 @@
             <td mat-cell *matCellDef="let element"> {{element.busTxnSeq}} </td>
           </ng-container>
 
+          <!-- CompTxnID Column -->
+          <ng-container matColumnDef="compTxnID">
+            <th mat-header-cell *matHeaderCellDef> Comp Txn ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.compTxnID}} </td>
+          </ng-container>
+
+          <!-- CompTxnName Column -->
+          <ng-container matColumnDef="compTxnName">
+            <th mat-header-cell *matHeaderCellDef> Comp Txn Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.compTxnName}} </td>
+          </ng-container>
+
           <!-- BusTxnType Column -->
           <ng-container matColumnDef="busTxnType">
             <th mat-header-cell *matHeaderCellDef> Bus Txn Type </th>
@@ -86,6 +99,18 @@
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+
+          <!-- Text Column -->
+          <ng-container matColumnDef="text">
+            <th mat-header-cell *matHeaderCellDef> Text </th>
+            <td mat-cell *matCellDef="let element"> {{element.text}} </td>
+          </ng-container>
+
+          <!-- MessageID Column -->
+          <ng-container matColumnDef="messageID">
+            <th mat-header-cell *matHeaderCellDef> MessageID </th>
+            <td mat-cell *matCellDef="let element"> {{element.messageID}} </td>
           </ng-container>
 
           <!-- XML Column -->

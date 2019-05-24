@@ -14,25 +14,19 @@ export interface LoggerData {
   systemCd: string;
   clientIP: string;
   busTxnSeq: string;
+  compTxnID: string;
+  compTxnName: string;
   busTxnType: string;
   busProcType: string;
   requestType: string;
   env: string;
   status: string;
+  text: string;
+  messageID: string;
   reqResXml: string;
 }
 
-let ELEMENT_DATA: LoggerData[] = [
-  // { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
-  //   busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
-  //   status: 'PASS', reqResXml: 'dummyData' },
-  // { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
-  //   busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
-  //   status: 'PASS', reqResXml: 'dummyData' },
-  // { dateTime: '2019-05-15T11:39:16+00:00', systemCd: 'dummySysCode', clientIP: '10.29.95.162', busTxnSeq: '4gyxfi6tp3',
-  //   busTxnType: 'GetClientProfile', busProcType: 'DirectoryandProfile', requestType: 'GET_CLIENT_PROFILE', env: 'gotham',
-  //   status: 'PASS', reqResXml: 'dummyData' }
-];
+let ELEMENT_DATA: LoggerData[] = [];
 
 let tableData: any[] = [];
 
@@ -43,8 +37,8 @@ let tableData: any[] = [];
 })
 export class LoggerComponent implements OnInit {
 
-  displayedColumns: string[] = ['dateTime', 'systemCd', 'clientIP', 'busTxnSeq', 
-  'busTxnType', 'busProcType', 'requestType', 'env', 'status', 'reqResXml'];
+  displayedColumns: string[] = ['dateTime', 'systemCd', 'clientIP', 'busTxnSeq', 'compTxnID', 'compTxnName',
+  'busTxnType', 'busProcType', 'requestType', 'env', 'status', 'text', 'messageID', 'reqResXml'];
   dataSource = ELEMENT_DATA;
   // dataSource = tableData;
 
@@ -55,8 +49,6 @@ export class LoggerComponent implements OnInit {
   checkVoltest:boolean = false;
   checkLive:boolean = false;
   checkAll:boolean = false;
-
-  // seqParams = ['BusTxnSeq', 'abc', 'xyz']
 
   seqParams: SeqParam[] = [
     {value: 'BusTxnSeq', viewValue: 'BusTxnSeq'},
@@ -75,6 +67,7 @@ export class LoggerComponent implements OnInit {
       'checkGotham': [false],
       'checkVoltest': [false],
       'checkLive': [false],
+      'checkProd': [false],
       'checkAll': [false]
     });
 
@@ -82,10 +75,6 @@ export class LoggerComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.seqForm.value);
-
-    // this.dataSource = tableData;
-
     const selectedParam  = this.seqForm.get('selectedParam');
     const busTxnSeq = this.seqForm.get('busTxnSeq').value;
     let env = '';
@@ -95,6 +84,8 @@ export class LoggerComponent implements OnInit {
       env = 'voltest';
     else if (this.seqForm.get('checkLive'))
       env = 'live';
+      else if (this.seqForm.get('checkProd'))
+      env = 'prod';
     else if (this.seqForm.get('checkAll'))
       env = 'all';
 
@@ -115,7 +106,7 @@ export class LoggerComponent implements OnInit {
     });
 
     this.httpClient.get('/api/postData', httpOptions).subscribe((res)=>{
-      // console.log(res[0].dateTime);
+      console.log(res[0].dateTime);
       console.log('fetching data from backend');
 
       const n = Object.keys(res).length;
@@ -124,7 +115,7 @@ export class LoggerComponent implements OnInit {
         tableData.push(res[i]);
       } 
 
-      console.log(tableData);
+      // console.log(tableData);
       this.dataSource = tableData;
     });
 

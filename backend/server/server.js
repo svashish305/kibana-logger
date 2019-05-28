@@ -64,7 +64,9 @@ app.post('/postData', (req, res) => {
   else
     index = 'json-dnp-*';
 
+  // url = `http://elastic.elasticsearch.nat.bt.com/${index}/_search`;
   url = `http://elastic.elasticsearch.nat.bt.com/${index}/_search?q=Request_E2Edata: *${busTxnSeq}*&env=${env}`;
+
   // zxtmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=Request_E2Edata: *${busTxnSeq}*&env=${env}`;
   // zxtmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp_prod-*/_search`;
 
@@ -73,14 +75,14 @@ app.post('/postData', (req, res) => {
 
   async function getData(url) {
     try {
-      const zxtmResponse = await axios.get(url, {
+      const Response = await axios.get(url, {
           auth: {
               username: username,
               password: password
           }
       });
 
-      const data = zxtmResponse.data.hits.hits;
+      const data = Response.data.hits.hits;
 
       // console.log(data[0]);
 

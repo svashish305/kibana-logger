@@ -50,6 +50,8 @@ app.post('/postData', (req, res) => {
   busTxnSeq = req.body.busTxnSeq;
   env = req.body.env;
   
+  // console.log(env);
+
   if (env === 'prod') {
     index = 'json-dnp_prod-*';
     url = `http://elastic.elasticsearch.nat.bt.com/${index}/_search?q=e2e.busTxnSeq:${busTxnSeq}`;
@@ -59,6 +61,8 @@ app.post('/postData', (req, res) => {
     url = `http://elastic.elasticsearch.nat.bt.com/${index}/_search?q=Request_E2Edata: *${busTxnSeq}*&env=${env}`;
   }    
   
+  // console.log(url);
+
   async function getData(url) {
     try {
       const Response = await axios.get(url, {

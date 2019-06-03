@@ -119,7 +119,7 @@ export class LoggerComponent implements OnInit {
         tableData.push(res[i]);
       } 
 
-      // console.log(tableData);
+      console.log(tableData);
       this.dataSource = tableData;
     });
 

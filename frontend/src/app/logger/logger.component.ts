@@ -110,7 +110,7 @@ export class LoggerComponent implements OnInit {
     });
 
     this.httpClient.get('/api/postData', httpOptions).subscribe((res)=>{
-      console.log(res[0].dateTime);
+      // console.log(res[0].dateTime);
       console.log('fetching data from backend');
 
       const n = Object.keys(res).length;

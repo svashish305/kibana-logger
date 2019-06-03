@@ -48,6 +48,8 @@ app.post('/postData', (req, res) => {
   busTxnSeq = req.body.busTxnSeq;
   env = req.body.env;
 
+  // console.log(env);
+
   zxtmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=Request_E2Edata: *${busTxnSeq}*&env=${env}`;
   bptmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=e2e.busTxnSeq:${busTxnSeq}&env=${env}`; 
 

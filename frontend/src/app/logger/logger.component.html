@@ -16,10 +16,26 @@
         </mat-form-field>
     
         <div class="container div-spacing">
-          <mat-checkbox formControlName="checkGotham" class="spacing">Gotham</mat-checkbox>
+          <mat-checkbox 
+            [checked]="data[0].checked" 
+            (change)="onChange($event, 0, data[0])"
+            class="spacing"
+            >
+            Gotham
+          </mat-checkbox>
+          <mat-checkbox [checked]="data[1].checked" 
+          (change)="onChange($event, 1, data[1])" class="spacing">Voltest</mat-checkbox>
+          <mat-checkbox [checked]="data[2].checked" 
+          (change)="onChange($event, 2, data[2])" class="spacing">Live</mat-checkbox>
+          <mat-checkbox [checked]="data[3].checked" 
+          (change)="onChange($event, 3, data[3])" class="spacing">Prod</mat-checkbox>
+          <mat-checkbox [checked]="data[4].checked" 
+          (change)="onChange($event, 4, data[4])" class="spacing">All</mat-checkbox>
+          
+          <!-- <mat-checkbox formControlName="checkGotham" class="spacing">Gotham</mat-checkbox>
           <mat-checkbox formControlName="checkVoltest" class="spacing">Voltest</mat-checkbox>
           <mat-checkbox formControlName="checkLive" class="spacing">Live</mat-checkbox>
-          <mat-checkbox formControlName="checkAll" class="spacing">All</mat-checkbox>
+          <mat-checkbox formControlName="checkAll" class="spacing">All</mat-checkbox> -->
 
           <button mat-button type="submit">Search</button>
         </div>    

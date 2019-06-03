@@ -48,6 +48,18 @@ export class LoggerComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   // dataSource = tableData;
 
+  data = [
+    { label: 'Gotham', checked: false },
+    { label: 'Voltest', checked: false },
+    { label: 'Prod', checked: false },
+    { label: 'Live', checked: false },
+    { label: 'All', checked: false }
+  ];
+
+  onChange(event, index, item) {
+    item.checked = !item.checked;
+  }
+
   seqForm: FormGroup;
   selectedParam:string = '';
   busTxnSeq:string = '';
@@ -89,14 +101,19 @@ export class LoggerComponent implements OnInit {
     const selectedParam  = this.seqForm.get('selectedParam');
     const busTxnSeq = this.seqForm.get('busTxnSeq').value;
     let env = '';
-    if (this.seqForm.get('checkGotham'))
+
+    if (this.data[0].checked)
       env = 'gotham';
-    else if (this.seqForm.get('checkVoltest'))
+    else if (this.data[1].checked)
       env = 'voltest';
-    else if (this.seqForm.get('checkLive'))
+    else if (this.data[2].checked)
       env = 'live';
-    else if (this.seqForm.get('checkAll'))
+      else if (this.data[3].checked)
+      env = 'prod';
+    else if (this.data[4].checked)
       env = 'all';
+
+    // console.log(env);
 
     // const zxtmUrl = `http://elastic.elasticsearch.nat.bt.com/json-dnp-*/_search?q=Request_E2Edata: *${busTxnSeq}*&env=${env}`;
     // for hyperlink, to show audit logs :

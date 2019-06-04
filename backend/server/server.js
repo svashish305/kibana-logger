@@ -77,32 +77,64 @@ app.post('/postData', (req, res) => {
       // console.log(data[0]);
 
       data.forEach(element => {
-        // item.dateTime = element._source.Timestamp;
-        item.dateTime = element._source['@timestamp'];
-        // item.clientIP = element._source.Client_IP.substr(2);
-        item.clientIP = element._source.APP_CONTEXT.substr(11);
-        // item.clientIP = element._source.Client_IP;
-        item.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`;
-        if (element._source.doc['REQUEST-SYSTEM-CD'] !== undefined)
-          item.systemCd = element._source.doc['REQUEST-SYSTEM-CD'];
-        item.busTxnSeq = element._source.e2e.busTxnSeq;
-        item.compTxnID = element._source.e2e.compTxnID;
-        item.compTxnName = element._source.e2e.compTxnName;
-        item.busTxnType = element._source.e2e.busTxnType;
-        item.busProcType = element._source.e2e.busProcType;
-        if (element._source.doc['REQUEST-TYPE'] !== undefined)
-          item.requestType = element._source.doc['REQUEST-TYPE'];
-        item.env = element._source.env;
-        if (element._source.doc['STATUS'] !== undefined)
-          item.status = element._source.doc['STATUS'];
-        if (element._source.doc['TEXT'] !== undefined)
-          item.text = element._source['TEXT'];
-        if (element._source.doc['MESSAGEID'] !== undefined)
-          item.messageID = element._source['MESSAGEID'];
+        if (env === 'prod') {                                    // BPTM logs
+          // item.dateTime = element._source.Timestamp;
+          item.dateTime = element._source['@timestamp'];
+          // item.clientIP = element._source.Client_IP.substr(2);
+          item.clientIP = element._source.APP_CONTEXT.substr(11);
+          // item.clientIP = element._source.Client_IP;
+          item.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`;
+          if (element._source.doc['REQUEST-SYSTEM-CD'] !== undefined)
+            item.systemCd = element._source.doc['REQUEST-SYSTEM-CD'];
+          item.busTxnSeq = element._source.e2e.busTxnSeq;
+          item.compTxnID = element._source.e2e.compTxnID;
+          item.compTxnName = element._source.e2e.compTxnName;
+          item.busTxnType = element._source.e2e.busTxnType;
+          item.busProcType = element._source.e2e.busProcType;
+          if (element._source.doc['REQUEST-TYPE'] !== undefined)
+            item.requestType = element._source.doc['REQUEST-TYPE'];
+          item.env = element._source.env;
+          if (element._source.doc['STATUS'] !== undefined)
+            item.status = element._source.doc['STATUS'];
+          if (element._source.doc['TEXT'] !== undefined)
+            item.text = element._source['TEXT'];
+          if (element._source.doc['MESSAGEID'] !== undefined)
+            item.messageID = element._source['MESSAGEID'];
+          item.reqResXml = '';
 
-        items.push(item);  
+          items.push(item);  
 
-        // console.log(item.status);
+          // console.log(item.status);
+        }
+        else {                                                   // ZXTM logs 
+          item.dateTime = element._source.Timestamp;
+          // item.dateTime = element._source['@timestamp'];
+          item.clientIP = element._source.Client_IP.substr(2);
+          // item.clientIP = element._source.APP_CONTEXT.substr(11);
+          // item.clientIP = element._source.Client_IP;
+          item.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`;
+          if (element._source.doc['REQUEST-SYSTEM-CD'] !== undefined)
+            item.systemCd = element._source.doc['REQUEST-SYSTEM-CD'];
+          item.busTxnSeq = element._source.e2e.busTxnSeq;
+          item.compTxnID = element._source.e2e.compTxnID;
+          item.compTxnName = element._source.e2e.compTxnName;
+          item.busTxnType = element._source.e2e.busTxnType;
+          item.busProcType = element._source.e2e.busProcType;
+          if (element._source.doc['REQUEST-TYPE'] !== undefined)
+            item.requestType = element._source.doc['REQUEST-TYPE'];
+          item.env = element._source.env;
+          if (element._source.doc['STATUS'] !== undefined)
+            item.status = element._source.doc['STATUS'];
+          if (element._source.doc['TEXT'] !== undefined)
+            item.text = element._source['TEXT'];
+          if (element._source.doc['MESSAGEID'] !== undefined)
+            item.messageID = element._source['MESSAGEID'];
+          item.reqResXml = element._source['Request_body'] + '\n' + element._source['Response_body'];
+
+          items.push(item);  
+
+          // console.log(item.status);  
+        }
       });
 
       // (async () => {

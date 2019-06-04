@@ -112,7 +112,6 @@ app.post('/postData', (req, res) => {
           item.clientIP = element._source.Client_IP.substr(2);
           // item.clientIP = element._source.APP_CONTEXT.substr(11);
           // item.clientIP = element._source.Client_IP;
-          item.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`;
           if (element._source.doc['REQUEST-SYSTEM-CD'] !== undefined)
             item.systemCd = element._source.doc['REQUEST-SYSTEM-CD'];
           item.busTxnSeq = element._source.e2e.busTxnSeq;
@@ -129,7 +128,8 @@ app.post('/postData', (req, res) => {
             item.text = element._source['TEXT'];
           if (element._source.doc['MESSAGEID'] !== undefined)
             item.messageID = element._source['MESSAGEID'];
-          item.reqResXml = element._source['Request_body'] + '\n' + element._source['Response_body'];
+          item.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`;
+          // item.reqResXml = element._source['Request_body'] + '\n' + element._source['Response_body'];
 
           items.push(item);  
 

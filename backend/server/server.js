@@ -128,8 +128,8 @@ app.post('/postData', (req, res) => {
             item.text = element._source['TEXT'];
           if (element._source.doc['MESSAGEID'] !== undefined)
             item.messageID = element._source['MESSAGEID'];
-          item.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`;
-          // item.reqResXml = element._source['Request_body'] + '\n' + element._source['Response_body'];
+          if (element._source.Request_body !== undefined || element._source.Response_body !== undefined)
+            item.reqResXml = `${element._source.Request_body} ${element._source.Response_body}`;
 
           items.push(item);  
 

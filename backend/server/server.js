@@ -227,11 +227,11 @@ app.get('/postData', (req, res) => {
   // console.log(JSON.stringify(itemsByCompTxnID, null, 2));
   for (let [key, value] of Object.entries(itemsByCompTxnID)) {
     itemData.push(value[0]);
-    // console.log(key, value[0]);
+    console.log(key, value);
   }
 
-  console.log(itemData);
-  // res.send(combinedItems);
-  res.send(itemData);  
+  // console.log(itemData);
+  res.send(combinedItems);
+  // res.send(itemData);  
 
 });

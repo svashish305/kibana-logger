@@ -45,6 +45,8 @@ export class LoggerComponent implements OnInit {
   seqForm: FormGroup;
   selectedParam:string = '';
   busTxnSeq:string = '';
+  prf_idfr_value: string = '';
+  prf_srv_id_value: string = '';
   
   data = [
     { label: 'Gotham', checked: false },
@@ -60,8 +62,8 @@ export class LoggerComponent implements OnInit {
 
   seqParams: SeqParam[] = [
     {value: 'BusTxnSeq', viewValue: 'BusTxnSeq'},
-    {value: 'Pizza', viewValue: 'Pizza'},
-    {value: 'Tacos', viewValue: 'Tacos'}
+    {value: 'PRF Identifier Value', viewValue: 'PRF Identifier Value'},
+    {value: 'PRF Service Identity Value', viewValue: 'PRF Service Identity Value'}
   ];
 
   constructor(private fb: FormBuilder, private httpClient: HttpClient) { 
@@ -72,6 +74,7 @@ export class LoggerComponent implements OnInit {
     this.seqForm = this.fb.group({
       'selectedParam' : ['', Validators.required],
       'busTxnSeq' : ['', Validators.required]
+      // 'paramValue' : ['', Validators.required]
     });
 
 
@@ -80,6 +83,7 @@ export class LoggerComponent implements OnInit {
   onSubmit() {
     const selectedParam  = this.seqForm.get('selectedParam');
     const busTxnSeq = this.seqForm.get('busTxnSeq').value;
+    // const busTxnSeq = this.seqForm.get('paramValue').value;
     let env = '';
     if (this.data[0].checked)
       env = 'gotham';
@@ -119,7 +123,7 @@ export class LoggerComponent implements OnInit {
         tableData.push(res[i]);
       } 
 
-      console.log(tableData);
+      // console.log(tableData);
       this.dataSource = tableData;
     });
 

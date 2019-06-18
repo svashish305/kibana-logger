@@ -26,6 +26,9 @@ let text = '';
 let messageID = '';
 let reqResXml = '';
 
+let prf_idfr_value = '';
+let prf_srv_id_value = '';
+
 let combinedItem = {dateTime, systemCd, clientIP, busTxnSeq, compTxnID, compTxnName, busTxnType, busProcType, requestType, env, status, text, messageID, reqResXml};
 let item = {dateTime, systemCd, clientIP, busTxnSeq, compTxnID, compTxnName, busTxnType, busProcType, requestType, env, status, text, messageID, reqResXml};
 
@@ -48,6 +51,8 @@ app.get('/', (req, res) => {
 app.post('/postData', (req, res) => {
   
   busTxnSeq = req.body.busTxnSeq;
+  // busTxnSeq = req.body.paramValue;
+
   env = req.body.env;
   
   // console.log(env);
@@ -134,7 +139,8 @@ app.post('/postData', (req, res) => {
           items.push(item);  
 
           // console.log(item.status);  
-        }
+        }       
+        
       });
 
       // (async () => {
@@ -205,7 +211,27 @@ app.get('/postData', (req, res) => {
   }
 
   // console.log(combinedItems);
+      
+  // write logic to group by compTxnID (1 row per compTxnID)
+  const groupBy = key => array =>
+  array.reduce((objectsByKeyValue, obj) => {
+    const value = obj[key];
+    objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+    return objectsByKeyValue;
+  }, {});
 
-  res.send(combinedItems);
+  const groupByCompTxnID = groupBy('compTxnID');
+  const itemsByCompTxnID = groupByCompTxnID(combinedItems);
+  let itemData = [];
+  // console.log(itemsByCompTxnID['4i0qtezpo3'][0]);
+  // console.log(JSON.stringify(itemsByCompTxnID, null, 2));
+  for (let [key, value] of Object.entries(itemsByCompTxnID)) {
+    itemData.push(value[0]);
+    // console.log(key, value[0]);
+  }
+
+  console.log(itemData);
+  // res.send(combinedItems);
+  res.send(itemData);  
 
 });

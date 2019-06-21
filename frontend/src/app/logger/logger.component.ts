@@ -43,8 +43,8 @@ export class LoggerComponent implements OnInit {
   // dataSource = tableData;
 
   seqForm: FormGroup;
-  selectedParam:string = '';
-  busTxnSeq:string = '';
+  selectedParam: string = '';
+  busTxnSeq: string = '';
   prf_idfr_value: string = '';
   prf_srv_id_value: string = '';
   
@@ -83,7 +83,7 @@ export class LoggerComponent implements OnInit {
   onSubmit() {
     const selectedParam  = this.seqForm.get('selectedParam');
     const busTxnSeq = this.seqForm.get('busTxnSeq').value;
-    // const busTxnSeq = this.seqForm.get('paramValue').value;
+    // const paramValue = this.seqForm.get('paramValue').value;
     let env = '';
     if (this.data[0].checked)
       env = 'gotham';

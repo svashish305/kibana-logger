@@ -33,4 +33,4 @@ cd .. && npm run dev
 
 
 #### Author: Shubhashish Verma
-##### Made by :heart: `:heart:`
+##### Made by :heart:

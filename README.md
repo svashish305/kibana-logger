@@ -26,7 +26,9 @@ cd .. && npm run dev
     ![alt text](https://media.giphy.com/media/hVgN6JT9yfy4Oc12Lr/giphy.gif "fetching BusTxnSeq from kibana URL")
 6. Select BusTxnSeq from dropdown and paste the copied string in the adjacent input field, click Search:
     ![alt text](https://media.giphy.com/media/WQCi7zFseSjdhWKM5O/giphy.gif "operating logger app")
-7. Reload every search for fetching fresh logs (due to async file write)
+7. Reload every search for fetching fresh logs, as well as clear the contets of a.json file (issue due to async file write), also suggested to Ctrl+C
+   running dev server and running again using 'npm run dev' (optional though)
+    ![alt text](https://media.giphy.com/media/VIhDMbrJqPxKp0iIEb/giphy.gif "fixes for next usage")
 8. Enjoy!
 
 

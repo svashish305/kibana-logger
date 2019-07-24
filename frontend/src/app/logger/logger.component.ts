@@ -118,6 +118,7 @@ export class LoggerComponent implements OnInit {
       console.log('fetching data from backend');
 
       const n = Object.keys(res).length;
+      // console.log(n);
       let i;
       for(i=0; i<n; i++) {
         tableData.push(res[i]);

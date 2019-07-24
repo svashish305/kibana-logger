@@ -231,7 +231,7 @@ app.get('/postData', (req, res) => {
   }
 
   // console.log(itemData);
-  res.send(combinedItems);
-  // res.send(itemData);  
+  // res.send(combinedItems);
+  res.send(itemData);  
 
 });

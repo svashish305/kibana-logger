@@ -19,7 +19,7 @@ cd .. && npm run dev
 2. Open VS Code (or your favourite editor) and open the cloned repo, also open the integrated terminal, preferrably use git bash, or if VS Code has cmd
    /powershell, open a separate Git Bash window
 3. Here's how to run the logger over local dev server (only after all the npm install commands, refer the above header for commands): 
-    ![alt text](![alt text](https://media.giphy.com/media/kgg2sOZwTirUj4BVO7/giphy.gif "running in localhost")
+    (![alt text](https://media.giphy.com/media/kgg2sOZwTirUj4BVO7/giphy.gif "running in localhost")
 4. Go to logger app in browser [Kibana Logger on localhost](http://localhost:4200)
 5. Go to kibana URL to fetch BusTxnSeq, as we are fetching logs based on this parameter itself as of now
     [Kibana URL](http://kibana.elasticsearch.nat.bt.com/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-15m,mode:quick,to:now))&_a=(columns:!(_source),index:'json-dnp_prod-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'*')),sort:!('@timestamp',desc))&indexPattern=json-dnp_prod-*&type=histogram)
